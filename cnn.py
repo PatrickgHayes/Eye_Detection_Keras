@@ -34,11 +34,13 @@ def loadImagesFromFolder(filename, encoding, perc_test):
     numberOfImages = len(f_images)
     f_labels = np.array([encoding,]*numberOfImages)
 
-    f_img_train = f_images[:len(f_images)/perc_test]
-    f_img_test = f_images[len(f_images)/perc_test:]
+    divd_train_and_test = round(numberOfImages * 1.0 * (100-perc_test) / 100)
 
-    f_labels_train = f_labels[:f_labels.shape[0]/perc_test]
-    f_labels_test = f_labels[f_labels.shape[0]/perc_test:]
+    f_img_train = f_images[:divd_train_and_test]
+    f_img_test = f_images[divd_train_and_test:]
+
+    f_labels_train = f_labels[:divd_train_and_test]
+    f_labels_test = f_labels[divd_train_and_test:]
 
     return f_img_train, f_img_test, f_labels_train, f_labels_test
 
@@ -67,7 +69,7 @@ def loadAllImages(perc_test):
 
 
 #Loads the data into training set and test set
-img_train, img_test, labels_train, labels_test = loadAllImages(2)
+img_train, img_test, labels_train, labels_test = loadAllImages(50)
 
 model = Sequential()
 
